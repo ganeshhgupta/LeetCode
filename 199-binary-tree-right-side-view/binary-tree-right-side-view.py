@@ -29,6 +29,8 @@ class Solution:
                     
             # after every iteration, append level list to main list
             if level:
+
+                #only diff be level order trav and RHS view
                 res.append(level[-1])
 
         return res
