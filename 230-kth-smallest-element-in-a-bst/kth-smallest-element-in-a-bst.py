@@ -7,16 +7,26 @@
 class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
         
-        self.li = []
+        stack = []
         curr = root
+        n = 0       #just a counter to keep track to total no. of elements
 
-        def inorder(node):
-            if not node:
-                return
-            inorder(node.left)
-            self.li.append(node.val)  
-            inorder(node.right)  
+        while curr or stack:
 
-        inorder(root)
-        return self.li[k-1] 
+            #traverse upto the left-most child (without 'visiting' any node)
+            while curr:
+                stack.append(curr)
+                curr = curr.left
 
+            #now we're at the left-most chlid. which is also the smallest element in a BST. nice.
+            #now..
+
+            #now pop/'visit' it:
+            curr = stack.pop()
+            n += 1 
+            if n == k:
+                return curr.val
+
+            #from bottom up, does inorder traversal
+            curr = curr.right
+            
