@@ -10,7 +10,6 @@ class Solution:
                 nums[i+2] ^= 1
                 c += 1
             i += 1
-        print(nums)
         if nums[-1] == 0 or nums[-2] == 0:
             return -1
         return c
