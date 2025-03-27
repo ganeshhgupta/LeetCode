@@ -14,6 +14,9 @@ class Solution:
             print("no, here")
             return intervals
 
+        # ^ stupid corner cases
+
+        # anyway, so for newInterval[0], check left to right, it would fall within an interval or outside bw two intervals, first occurence, then break
         for i in range(len(intervals)):
             if intervals[i][1] >= newInterval[0]:
                 start = min(intervals[i][0], newInterval[0])
@@ -21,6 +24,7 @@ class Solution:
                 print("start: ", start, start_index)
                 break
 
+        # same for newInterval[1], right to left
         for i in range(len(intervals) - 1, -1, -1):
             if intervals[i][0] <= newInterval[1]:
                 end = max(intervals[i][1], newInterval[1])
