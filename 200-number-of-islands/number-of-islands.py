@@ -1,24 +1,26 @@
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
 
-        directions = [[1, 0], [-1, 0], [0, 1], [0, -1]]
-        ROWS, COLS = len(grid), len(grid[0])
-        islands = 0
+        #dfs
+        directions = [[1, 0], [0, 1], [-1, 0], [0, -1]]
+        row, col = len(grid), len(grid[0])
+        island_count = 0
 
         def dfs(r, c):
-            if (r < 0 or c < 0 or r >= ROWS or 
-                c >= COLS or grid[r][c] == "0"
-            ):
-                return
-                
-            grid[r][c] = "0"
-            for dr, dc in directions:
+
+            if not (0 <= r < row) or not (0 <= c < col) or grid[r][c] == "0": #if water or out of bounds
+                return 
+            
+            grid[r][c] = "0" #turn vistied grid to water
+
+            for dr, dc in directions:   #dfs in all four directions
                 dfs(r + dr, c + dc)
 
-        for r in range(ROWS):
-            for c in range(COLS):
+        for r in range(row):
+            for c in range(col):
                 if grid[r][c] == "1":
                     dfs(r, c)
-                    islands += 1
+                    island_count += 1
 
-        return islands
+        return island_count
+
