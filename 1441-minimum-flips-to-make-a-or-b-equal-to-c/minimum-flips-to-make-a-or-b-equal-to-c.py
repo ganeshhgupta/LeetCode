@@ -6,7 +6,6 @@ class Solution:
         c = list(bin(c))[2:]
 
         max_len = max(len(a), len(b), len(c))
-
         count = 0
 
         for i in range(max_len - len(a)):
@@ -19,11 +18,5 @@ class Solution:
         for i in range(len(c)):
             if int(a[i]) | int(b[i]) !=  int(c[i]):
                 count += abs(int(a[i]) + int(b[i]) - int(c[i]))
-                print(a[i], b[i], c[i], abs(int(a[i]) + int(b[i]) - int(c[i])))
-            
-        print(a)
-        print(b)
-        print(c)
 
-        print(count)
         return count
