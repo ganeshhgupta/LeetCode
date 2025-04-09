@@ -10,10 +10,7 @@ class Solution:
         if k > min(nums):
              return -1
 
-        sn = sorted(nums)
-        print(sn)
-        print(len(set(sn)))
-        count = len(set(sn))
-        if min(sn) == k:
+        count = len(set(nums))
+        if min(nums) == k:
             count -= 1
         return count
