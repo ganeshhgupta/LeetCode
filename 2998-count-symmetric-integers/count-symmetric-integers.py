@@ -15,13 +15,17 @@ class Solution:
             return result
 
         count = 0
+        i = low
 
-        for i in range(low, high + 1):
+        while i <= high :
             li = list(str(i))
             if len(li) % 2 == 0:
                 mid = len(li)//2
                 if sum(li[:mid]) == sum(li[mid:]):
                     count += 1
                     print(i, li[:mid], li[mid:] )
+                i += 1
+            else:
+                i = 10 ** len(li)
 
         return count
