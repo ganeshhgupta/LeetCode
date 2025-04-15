@@ -22,6 +22,6 @@ class Solution:
                     q.append(node.right)
 
             if level:
-                res.append(level[-1])
+                res.append(level[-1]) #plain level order trav, except here level[-1] instead of level
 
         return res
