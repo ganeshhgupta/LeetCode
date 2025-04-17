@@ -12,17 +12,17 @@ class Solution:
         curr = head
         dummy = Node(insertVal)
 
-        if not head:
+        if not head: #case 1, null list
             dummy.next = dummy
             return dummy
 
-        while curr.next != head:
+        while curr.next != head: #2. regular stuff
             if curr.val <= insertVal <= curr.next.val:
                 dummy.next = curr.next
                 curr.next = dummy
                 return head
             
-            elif curr.val > curr.next.val:
+            elif curr.val > curr.next.val: #3. circular end of list
                 if curr.val <= insertVal or insertVal <= curr.next.val:
                     dummy.next = curr.next
                     curr.next = dummy
@@ -30,7 +30,7 @@ class Solution:
 
             curr = curr.next
 
-        dummy.next = curr.next
+        dummy.next = curr.next #4. univalue list, insert anywhere
         curr.next = dummy
         return head
 
