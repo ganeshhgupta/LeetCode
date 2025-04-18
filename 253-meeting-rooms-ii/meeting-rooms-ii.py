@@ -1,6 +1,9 @@
 class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
         
+        #separate the s and e in sorted arrays, 
+        # if s < e, s++ c++ else e++ c--
+        
         start = sorted([i for i, j in intervals])
         end = sorted([i for j, i in intervals])
         
