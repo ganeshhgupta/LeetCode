@@ -1,6 +1,7 @@
 class Solution:
     def longestOnes(self, nums: List[int], k: int) -> int:
         
+        #sliding window, shift l till num zeroes <= k
         max_w = zeroes = 0
         l = 0
 
