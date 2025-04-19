@@ -9,24 +9,17 @@ class Solution:
         
         stack = []
         curr = root
-        n = 0       #just a counter to keep track to total no. of elements
+        n = 0
 
         while curr or stack:
 
-            #traverse upto the left-most child (without 'visiting' any node)
             while curr:
                 stack.append(curr)
                 curr = curr.left
 
-            #now we're at the left-most chlid. which is also the smallest element in a BST. nice.
-            #now..
-
-            #now pop/'visit' it:
             curr = stack.pop()
-            n += 1 
+            n += 1
             if n == k:
                 return curr.val
-
-            #from bottom up, does inorder traversal
-            curr = curr.right
             
+            curr = curr.right
