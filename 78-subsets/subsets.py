@@ -5,22 +5,16 @@ class Solution:
         subset = []
 
         def dfs(i):
-
-            #returns when last element in nums has been reached, irrespective of how many elements are in subset array
-            #why? cause i will increment irrespective for whether append or pop is happening to subset array
+            
             if i >= len(nums):
                 res.append(subset.copy())
                 return
 
-            #subset = [] -> [1] -> [1, 2] ..
-            #                   -> [] -> [2] -> [2, 3]
-            #                                -> [] -> [3] .. so on
             subset.append(nums[i])
-            dfs(i+1)
+            dfs(i+1) #include nums[i] and go on to explorig subsets which contain nums[i]
 
-            #backtracking by going on element back in the existing subset
             subset.pop()
-            dfs(i+1)
+            dfs(i+1) #exclude nums[i] and go on to explorig subsets which don't contain nums[i]
 
         dfs(0)
         return res
