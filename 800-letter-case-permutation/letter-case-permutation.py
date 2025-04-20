@@ -2,23 +2,23 @@ class Solution:
     def letterCasePermutation(self, s: str) -> List[str]:
         
         res = []
+        li = []
         s = s.lower()
 
-        #girl are you backtracking, cause idk when to pop out
-        def dfs(i, li):
+        def dfs(i):
             
             if i == len(s):
-                res.append("".join(li))
+                res.append("".join(li.copy()))
                 return
 
             if s[i].isalpha():
                 li.append(s[i].upper())
-                dfs(i+1, li)
+                dfs(i+1)
                 li.pop()
 
             li.append(s[i])
-            dfs(i+1, li)
+            dfs(i+1)
             li.pop()
 
-        dfs(0, [])
+        dfs(0)
         return res
