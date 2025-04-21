@@ -25,6 +25,6 @@ class Solution:
                     q.append([node.left, col - 1])
                 if node.right:
                     q.append([node.right, col + 1])
-        
+        print( list(cols) )
         return [cols[x] for x in sorted(cols)]
 
