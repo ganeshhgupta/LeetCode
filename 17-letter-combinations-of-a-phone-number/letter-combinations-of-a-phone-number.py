@@ -13,14 +13,14 @@ class Solution:
 
         res = []
 
-        def dfs(i, path):
+        def dfs(i, li):
             if i == len(digits):
-                res.append(path)
+                res.append(li)
                 return
 
             letters = map[digits[i]]
             for l in letters:
-                dfs(i + 1, path + l)
+                dfs(i + 1, li + l)
 
         dfs(0, "")
         return res
