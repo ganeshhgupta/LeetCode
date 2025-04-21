@@ -1,13 +1,13 @@
 class Solution:
     def isBalanced(self, root: Optional[TreeNode]) -> bool:
         
-        def depth(root):
+        def diff(root):
 
             if root is None:
                 return 0
 
-            left = depth(root.left)
-            right = depth(root.right)
+            left = diff(root.left)
+            right = diff(root.right)
 
             if abs(left - right) > 1:
                 return -1
@@ -17,4 +17,4 @@ class Solution:
 
             return 1 + max(left, right)
 
-        return depth(root) != -1
+        return diff(root) != -1
