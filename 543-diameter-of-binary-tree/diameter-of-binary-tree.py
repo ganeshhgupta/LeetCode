@@ -8,20 +8,17 @@ class Solution:
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
         
         self.diam = 0
-        cache_map = {}
 
         def dfs(node):
+
             if not node:
                 return 0
-            if id(node) in cache_map:
-                return cache_map[id(node)]
 
             left = dfs(node.left)
             right = dfs(node.right)
 
-            self.diam = max(self.diam, left + right)
-            cache_map[id(node)] = 1 + max(left, right)
-            return cache_map[id(node)]
+            self.diam = max( self.diam, left + right)
+            return 1 + max( left, right)
 
         dfs(root)
-        return self.diam
+        return self.diam 
