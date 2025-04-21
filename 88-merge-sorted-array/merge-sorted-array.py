@@ -3,21 +3,22 @@ class Solution:
         """
         Do not return anything, modify nums1 in-place instead.
         """
+        
+        l1, l2 = m - 1, n - 1
+        l3 = m + n - 1
 
-        last = m + n - 1
-
-        #merge in reverse
-        while m > 0 and n > 0:
-            if nums1[m - 1] > nums2[n - 1]:
-                nums1[last] = nums1[m - 1]
-                m -= 1
+        while l2 >= 0 and l1 >= 0:
+            if nums1[l1] > nums2[l2]:
+                nums1[l3] = nums1[l1]
+                l1 -= 1
             else:
-                 nums1[last] = nums2[n - 1]
-                 n -= 1
-            last -= 1
+                nums1[l3] = nums2[l2]
+                l2 -= 1
+            l3 -= 1
 
-        #if nums2 have leftover elements:
-        while n > 0:
-            nums1[last] = nums2[n - 1]
-            n -= 1
-            last -= 1
+        while l2 >= 0:
+            nums1[l3] = nums2[l2]
+            l2 -= 1
+            l3 -= 1
+
+        print(nums1)      
