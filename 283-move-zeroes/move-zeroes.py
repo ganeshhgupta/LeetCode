@@ -7,8 +7,5 @@ class Solution:
         
         for i in range(len(nums)):
             if nums[i] != 0:
-                nums[last] = nums[i]
+                nums[last], nums[i] = nums[i], nums[last]
                 last += 1
-        
-        for i in range(last, len(nums)):
-            nums[i] = 0
