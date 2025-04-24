@@ -6,7 +6,7 @@ class Solution:
         # Initialize heap with first element from each row (first column of each row)
         for r in range(min(k, n)):  # no need to push more than k rows
             heapq.heappush(min_heap, (matrix[r][0], r, 0))
-
+        print(min_heap)
         # Extract-min k times
         for _ in range(k):
             val, r, c = heapq.heappop(min_heap)
