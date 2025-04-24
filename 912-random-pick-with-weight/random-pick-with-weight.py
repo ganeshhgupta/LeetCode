@@ -3,7 +3,7 @@ class Solution:
     def __init__(self, w: List[int]):
         self.pre_sum = [w[0]]
         for i in range(1, len(w)):
-            self.pre_sum.append(self.pre_sum[-1] + w[i])
+            self.pre_sum.append(self.pre_sum[i-1] + w[i])
         self.total = self.pre_sum[-1]
 
     def pickIndex(self) -> int:
@@ -12,7 +12,9 @@ class Solution:
 
         while l < r:
             mid = (l + r) // 2
-            if self.pre_sum[mid] < target:
+            if self.pre_sum[mid] == target:
+                return mid
+            elif self.pre_sum[mid] < target:
                 l = mid + 1
             else:
                 r = mid
