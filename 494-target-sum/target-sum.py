@@ -1,23 +1,19 @@
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
-        
-        dp = {} 
-        n = len(nums)
-        def dfs(i, val):
+       
+        dp = {}
+        def dfs(i, sum):
+            if i == len(nums):
+                if sum == target:
+                    return 1
+                else:
+                    return 0 
+            
+            if (i, sum) in dp:
+                return dp[(i ,sum)]
 
-            #if array ends, check if sum == target, ret 1
-            if i == n:
-                return 1 if val == target else 0
+            dp[(i, sum)] = dfs( i + 1, sum + nums[i]) + dfs( i + 1, sum - nums [i] )
 
-            #if (i, val) combo already in dp, return answer already
-            if (i, val) in dp:
-                return dp[(i, val)]
-
-            #all possible valid sign combinations from (i,val):
-            dp[(i, val)] = ( dfs(i + 1, val  - nums[i]) + dfs(i + 1, val  + nums[i]) )
-
-            return dp[(i, val)]
-
-        res = dfs(0, 0)
-        print(dp)
-        return res
+            
+            return dp[(i, sum)]
+        return dfs(0, 0)
