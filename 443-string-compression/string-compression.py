@@ -1,7 +1,7 @@
 class Solution:
     def compress(self, chars: List[str]) -> int:
         
-        chars += " "
+        chars += " " #hack, huehue
         c = 0
         p = 0
         for i in range(len(chars) -1):
