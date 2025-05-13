@@ -2,25 +2,24 @@ class Solution:
     def minRemoveToMakeValid(self, s: str) -> str:
         
         res = []
-        count = 0
+        c = 0
+
         for i in s:
             if i == '(':
-                count += 1
+                c += 1
                 res.append(i)
-            elif i == ')' and count > 0:
-                count -= 1
+            elif i == ')' and c > 0:
+                c -= 1
                 res.append(i)
-            elif i != ')':
+            elif i != ')' :
                 res.append(i)
 
-        print(res)
-        filtered = []
-
-        for i in res[::-1]:
-
-            if i == '(' and count > 0:
-                count -= 1
+        res[:] = res[::-1]
+        ans = []
+        for i in res:
+            if i == '(' and c > 0:
+                c -= 1
             else:
-                filtered.append(i)
-
-        return "".join(filtered[::-1])
+                ans.append(i)
+        
+        return "".join(ans[::-1])
