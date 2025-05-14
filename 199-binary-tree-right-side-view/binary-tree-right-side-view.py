@@ -8,8 +8,7 @@ class Solution:
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
         
         res = []
-        q = collections.deque()
-        q.append(root)
+        q = deque([(root)])
         
         while q:
             l = len(q)
