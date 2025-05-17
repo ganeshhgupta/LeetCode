@@ -9,19 +9,37 @@ import heapq
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         
-        mh = []
-        for node in lists:
-            if node:
-                heapq.heappush(mh, (node.val, id(node), node))
+        if not lists or len(lists) == 0:
+            return None
 
-        dummy = ListNode(0)
-        curr = dummy
+        def merge(l1, l2): #simply merge two lists
+            d = ListNode()
+            tail = d
 
-        while mh:
-            val, node_id, node = heapq.heappop(mh)
-            curr.next = node
-            curr = curr.next
-            if node.next:
-                heapq.heappush(mh, (node.next.val, id(node.next), node.next))
-        
-        return dummy.next
+            while l1 and l2:
+                if l1.val < l2.val:
+                    tail.next = l1
+                    l1 = l1.next
+                else:
+                    tail.next = l2
+                    l2 = l2.next
+                tail = tail.next
+            if l1:
+                tail.next = l1
+            if l2:
+                tail.next = l2
+            
+            return d.next
+
+        while len(lists) > 1:
+            mergedList = []
+
+            for i in range(0, len(lists), 2): # 2 -> merge two lists at a time
+                l1 = lists[i]
+                l2 = lists[i+1] if (i+1) < len(lists) else None
+                mergedList.append(merge(l1, l2))
+            lists = mergedList
+            
+        return lists[0]
+
+
