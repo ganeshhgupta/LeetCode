@@ -1,22 +1,13 @@
 class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        li = []
+        for start, end in intervals:
+            li.append([start, 1])
+            li.append([end, -1])
+        li.sort()
         
-        #separate the s and e in sorted arrays, 
-        # if s < e, s++ c++ else e++ c--
-        
-        start = sorted([i for i, j in intervals])
-        end = sorted([i for j, i in intervals])
-        
-        res, count = 0, 0
-        s, e = 0, 0
-
-        while s < len(intervals):
-            if  start[s] < end[e]:
-                count += 1
-                s += 1
-            else:
-                count -= 1
-                e +=1
-            res = max(res, count)
-
-        return res
+        curr = maxx = 0
+        for time, change in li:
+            curr += change
+            maxx = max(maxx, curr)
+        return maxx
