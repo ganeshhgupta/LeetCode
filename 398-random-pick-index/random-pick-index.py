@@ -7,8 +7,9 @@ class Solution:
             self.map[n].append(i)
 
     def pick(self, target: int) -> int:
-        i = self.map[target]
-        return random.choice(i)
+        indices = self.map[target]
+        return random.choice(indices)
+
 
 
 # Your Solution object will be instantiated and called as such:
