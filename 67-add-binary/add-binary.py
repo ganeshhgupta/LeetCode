@@ -1,21 +1,25 @@
 class Solution:
     def addBinary(self, a: str, b: str) -> str:
-        
-        res = ""
+        a, b = a[::-1], b[::-1]  # reversing
+
+        # Pad the shorter string with '0's
+        if len(a) < len(b):
+            a += '0' * (len(b) - len(a))
+        else:
+            b += '0' * (len(a) - len(b))
+
+        res = []
         carry = 0
 
-        a, b = a[::-1], b[::-1] #reversing
+        for i in range(len(a)):
+            A = int(a[i])
+            B = int(b[i])
 
-        for i in range(max(len(a), len(b))):
-             
-             A = int(a[i]) if i < len(a) else 0
-             B = int(b[i]) if i < len(b) else 0
-
-             total = A + B + carry
-             res += str( total % 2)
-             carry = total // 2
+            total = A + B + carry
+            res.append(str(total % 2))
+            carry = total // 2
 
         if carry:
-            res += "1"
+            res.append('1')
 
-        return res[::-1]
+        return ''.join(res[::-1])
