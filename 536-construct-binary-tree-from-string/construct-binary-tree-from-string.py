@@ -1,49 +1,33 @@
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
-
 class Solution:
     def str2tree(self, s: str) -> Optional[TreeNode]:
         if not s:
             return None
 
-        stack = []
+        st = []
         i = 0
 
-        def toNum(i): #extract no. from string of digits
-            sign = 1
-
+        def toNum(i):
+            negative = False
             if s[i] == '-':
-                sign = -1
+                negative = True
                 i += 1
-
             num = 0
             while i < len(s) and s[i].isdigit():
-                num = 10 * num + int(s[i])
+                num = num * 10 + int(s[i]) 
                 i += 1
-
-            return sign * num, i - 1
+            return (-num if negative else num), i - 1
 
         while i < len(s):
-
-            if s[i] == '-' or s[i].isdigit(): #add to stack
-
+            c = s[i]
+            if c == '-' or c.isdigit():
                 num, i = toNum(i)
-                stack.append(TreeNode(num))
-
-            elif s[i] == ')': #if ')' digit is l/r child of prev no. in stack
-
-                child = stack.pop()
-                parent = stack[-1]
-
-                if not parent.left:
-                    parent.left = child
+                st.append(TreeNode(num))
+            elif c == ')':
+                top = st.pop()
+                if not st[-1].left:
+                    st[-1].left = top
                 else:
-                    parent.right = child
-
+                    st[-1].right = top
             i += 1
 
-        return stack[0]
+        return st[-1] if st else None
