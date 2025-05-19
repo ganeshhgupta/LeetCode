@@ -9,13 +9,5 @@ class MovingAverage:
         self.q.append(val)
         self.sum += val
         if len(self.q) > self.size:
-            rem = self.q.popleft()
-            self.sum -= rem
-        
+            self.sum  -= self.q.popleft()        
         return self.sum/len(self.q)
-        
-
-
-# Your MovingAverage object will be instantiated and called as such:
-# obj = MovingAverage(size)
-# param_1 = obj.next(val)
