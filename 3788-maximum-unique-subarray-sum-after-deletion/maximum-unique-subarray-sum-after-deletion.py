@@ -1,9 +1,5 @@
-class Solution(object):
-    def maxSum(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
         maxx = min(nums)
         s = set()
         for n in nums:
