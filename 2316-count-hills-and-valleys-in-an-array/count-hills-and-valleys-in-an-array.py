@@ -1,13 +1,19 @@
 class Solution:
     def countHillValley(self, nums: List[int]) -> int:
-        count = 0
-        left = 0
+        res = 0
+        i, j = 1, 0
+        while i < len(nums) - 1:
 
-        for i in range(1, len(nums) - 1):
-            if nums[i] != nums[i + 1]:
-                if (nums[i] > nums[left] and nums[i] > nums[i + 1]) or \
-                   (nums[i] < nums[left] and nums[i] < nums[i + 1]):
-                    count += 1
-                left = i
+            if nums[i] == nums[i+1]:
+                i += 1
+                continue
 
-        return count
+            if nums[j] < nums[i] > nums[i+1] or nums[j] > nums[i] < nums[i+1]:
+                res += 1
+                j = i
+                i += 1
+            else:
+                j = i
+                i += 1
+
+        return res
