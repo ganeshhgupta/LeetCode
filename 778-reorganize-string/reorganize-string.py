@@ -1,5 +1,3 @@
-from collections import Counter
-
 class Solution:
     def reorganizeString(self, s: str) -> str:
         count = Counter(s)        
