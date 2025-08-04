@@ -23,4 +23,4 @@ class Solution:
                 nums[i], nums[pivot_i] = nums[pivot_i], nums[i] 
                 break
 
-        nums[pivot_i + 1:] = sorted(nums[pivot_i + 1:])
+        nums[pivot_i + 1:] = reversed(nums[pivot_i + 1:])
