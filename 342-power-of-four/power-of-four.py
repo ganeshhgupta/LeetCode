@@ -1,12 +1,11 @@
 class Solution:
     def isPowerOfFour(self, n: int) -> bool:
-        
-        if n == 0:
+        if n <= 0:
             return False
-
-        while n != 1:
-            if n % 4 != 0:
-                return False
-            n /= 4
-
-        return True
+        
+        s = bin(n)[2:]
+        
+        if s.count('1') != 1:
+            return False
+        
+        return (len(s) - 1) % 2 == 0
