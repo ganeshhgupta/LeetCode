@@ -1,35 +1,24 @@
-from typing import List
-
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-
-        #graph = {i: [] for i in range(numCourses)}
-        graph = defaultdict(list)
-        print(graph)
-        for dest, src in prerequisites:
-            graph[dest].append(src)
         
-        print(graph)
-        visited = [0] * numCourses
+        visited = set()
+        map = defaultdict(list)
+        for c, pre in prerequisites:
+            map[c].append(pre) # course:prereq adj list 
         
-        def dfs(course):
-            if visited[course] == 1:
-                return False
-            if visited[course] == 2:
-                return True
+        def cycleFree(c): # dfs
+            if c in visited: return False # same course encountered twice : loop
+            if map[c] == []: return True # course has no prereqs : no loop
             
-            visited[course] = 1
-            
-            for prereq in graph[course]:
-                if not dfs(prereq):
-                    return False
-            
-            visited[course] = 2
+            visited.add(c)
+            for pre in map[c]:
+                if not cycleFree(pre): return False
+                    
+            visited.remove(c)
+            map[c] = [] # we are done with this dfs path, so remove
             return True
         
-        for course in range(numCourses):
-            if visited[course] == 0:
-                if not dfs(course):
-                    return False
-        
+        for c in range(numCourses):
+            if not cycleFree(c):
+                return False
         return True
