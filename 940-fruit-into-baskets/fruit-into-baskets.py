@@ -1,18 +1,21 @@
 class Solution:
     def totalFruit(self, fruits: List[int]) -> int:
-        #sliding
-        c, f = defaultdict(int), fruits
-        l, res = 0, 0
+        
+        # form a contiguous subarray with atmost 2 distinct fruits
+        # O(n), O(1)
 
-        for r in range(len(f)):
-            c[f[r]] += 1
+        c = defaultdict(int)
+        l = cur = res = 0
+
+        for r in range(len(fruits)):
+            c[fruits[r]] += 1
+            cur += 1
 
             while len(c) > 2:
-                c[f[l]] -= 1
-                if c[f[l]] == 0:
-                    del c[f[l]]
+                c[fruits[l]] -=1
+                cur -= 1
+                if not c[fruits[l]]: c.pop(fruits[l])
                 l += 1
 
-            res = max(res, r - l + 1)
-
+            res = max(res, cur)
         return res
