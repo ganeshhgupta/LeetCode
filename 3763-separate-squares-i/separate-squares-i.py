@@ -14,7 +14,7 @@ class Solution:
             a_diff = w * h_diff
 
             if curr_a + a_diff >= A:
-                req_h = (A - curr_a) / w
+                req_h = (A - curr_a) / w # re_h is that extra/fractional height you need from current strip
                 return prev_h + req_h
             
             w += l if start == 1 else -l
