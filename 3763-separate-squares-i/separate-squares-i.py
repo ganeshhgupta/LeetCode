@@ -1,35 +1,22 @@
-class Solution:      
+class Solution:
     def separateSquares(self, squares: List[List[int]]) -> float:
 
-        # O(n log(R)) n:Sqaure, R:Range, O(1)
-        min_y = min(square[1] for square in squares)
-        max_y = max(square[1] + square[2] for square in squares)
-        precision = 1e-5
+        # O(n log n), O(n) n:Sqaures
+        A = sum((l * l for x, y, l in squares))
+        strips = [(y, 1, l) for x, y, l in squares] + [(y + l, 0, l) for x, y, l in squares]
+        # (y, 1, l) here 1 -> start of sqaure, (y + l, 0, l) 0 -> end
+        strips.sort()
+        width = curr_a = prev_h = 0
 
-        def largerLow(squares, mid_y):
-            la = 0
-            ua = 0
+        for i in range(len(strips)):
+            y, start, l = strips[i]
+            h_diff = y - prev_h
+            a_diff = width * h_diff
+
+            if curr_a + a_diff >= A / 2:
+                req_h = (A / 2 - curr_a) / width
+                return prev_h + req_h
             
-            for s in squares:
-                bottom_y = s[1]
-                side = s[2]
-                top_y = bottom_y + side
-                
-                if top_y <= mid_y:
-                    la += side * side
-                elif bottom_y >= mid_y:
-                    ua += side * side
-                else:
-                    la += (mid_y - bottom_y) * side
-                    ua += (top_y - mid_y) * side
-            
-            return la >= ua
-        
-        while max_y - min_y > precision:
-            mid_y = (min_y + max_y) / 2
-            if largerLow(squares, mid_y):
-                max_y = mid_y
-            else:
-                min_y = mid_y
-        
-        return min_y
+            width += l if start == 1 else -l
+            curr_a += a_diff
+            prev_h = y
