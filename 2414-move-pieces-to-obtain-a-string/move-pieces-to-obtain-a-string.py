@@ -1,7 +1,7 @@
 class Solution:
     def canChange(self, start: str, target: str) -> bool:
 
-        # O(n), O(n)
+        # O(n), O(1)
         if start.replace('_', '') != target.replace('_', ''):
             return False  # sequence mismatch
 
