@@ -16,8 +16,12 @@ class Solution:
                     dp[i][j] = dp[i-1][j-1]
                     
                 elif p[j-1] == "*":
-                    dp[i][j] = dp[i][j-2]
-                    if p[j-2] == "." or p[j-2] == s[i-1]:
+                    dp[i][j] = dp[i][j-2] # zero occurence of p[i-1]
+
+                    if p[j-2] == "." or p[j-2] == s[i-1]: 
+                        # if '.*' come together, they accomodate any/all characters
+                        # character preceding '*' matches the current text character s[i-1]
+
                         dp[i][j] = dp[i][j] or dp[i-1][j]
                         
         return dp[len(s)][len(p)]
