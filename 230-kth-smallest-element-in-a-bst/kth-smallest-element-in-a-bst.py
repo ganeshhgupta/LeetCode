@@ -7,19 +7,25 @@
 class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
         
-        stack = []
+        # O(h+k), O(h)
+        s = []
+        count = 0
         curr = root
-        n = 0
 
-        while curr or stack:
-
+        while s or curr:
+            
             while curr:
-                stack.append(curr)
+                s.append(curr)
                 curr = curr.left
+            
+            curr = s.pop()
+            count += 1
 
-            curr = stack.pop()
-            n += 1
-            if n == k:
+            if count == k:
                 return curr.val
             
             curr = curr.right
+
+            
+            
+            
