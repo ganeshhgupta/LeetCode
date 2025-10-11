@@ -8,14 +8,11 @@ class Solution:
             c = 0
             for p in piles:
                 c += ceil( p / k)
-            
             return c <= h
 
         while l <= r:
             m = l + ( r - l) // 2
-
-            k = m
-            if canEat(k):
+            if canEat(m):
                 r = m - 1
             else:
                 l = m + 1
