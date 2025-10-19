@@ -1,14 +1,23 @@
 class Solution:
     def countMaxOrSubsets(self, nums: List[int]) -> int:
+        
+        # O(2n), O(n)
+        
+        max_or = 0
+        res = 0
 
-        maxx = 0
-        for num in nums:
-            maxx |= num
-        
-        def dfs(i, curr):
+        for i in nums:
+            max_or |= i
+
+        def dfs(i, cur_or):
+            nonlocal res, max_or
+
             if i == len(nums):
-                return 1 if curr == maxx else 0
-                
-            return dfs(i+1, curr | nums[i]) + dfs(i+1, curr)
+                res += 1 if cur_or == max_or else 0
+                return
+            
+            dfs(i + 1, cur_or | nums[i])
+            dfs(i + 1, cur_or)
         
-        return dfs(0, 0)
+        dfs(0, 0)
+        return res
