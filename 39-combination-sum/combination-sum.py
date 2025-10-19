@@ -1,25 +1,22 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         
+        # O( 2^(target/min(candidates)) ) , O(number of solutions × avg length)
         res = []
-        subset = []
+        n = len(candidates)
 
-        def dfs(i, sum):
-            if sum == target:
-                res.append(subset.copy())  # Found a valid combination, so add it to result
+        def dfs(i, li, cur):
+            if i == n:
+                if cur == target:
+                    res.append(li.copy())
                 return
-            if sum > target or i >= len(candidates):  # If sum exceeds target or no candidates left
+
+            if cur > target or i == len(candidates):
                 return
-
-            # Include the current candidate (allowing reuse)
-            subset.append(candidates[i])
-            dfs(i, sum + candidates[i])  # Stay at the same index to reuse the current candidate
-
-            # Backtrack: remove the last added element
-            subset.pop()
-
-            # Explore the next candidate (move to the next index)
-            dfs(i + 1, sum)
-
-        dfs(0, 0)
+            
+            dfs(i, li + [candidates[i]], cur + candidates[i])
+            dfs(i + 1, li, cur)
+            return
+        
+        dfs(0, [], 0)
         return res
