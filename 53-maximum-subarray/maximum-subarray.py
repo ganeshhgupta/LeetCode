@@ -1,6 +1,8 @@
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
         
+        # O(n), O(1)
+        
         curr = res = nums[0]
 
         for i in range(1, len(nums)):
