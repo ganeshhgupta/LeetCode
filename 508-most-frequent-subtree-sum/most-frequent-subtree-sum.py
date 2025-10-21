@@ -1,6 +1,7 @@
 class Solution:
     def findFrequentTreeSum(self, root: Optional[TreeNode]) -> List[int]:
         
+        # O(n), O(n)
         sum_count = defaultdict(int)
 
         def dfs(n):
