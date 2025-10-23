@@ -1,23 +1,27 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         
-        v = set()
         adj = defaultdict(list)
-        for c, pre in prerequisites:
-            adj[c].append(pre)
+
+        for i, j in prerequisites:
+            adj[i].append(j)
         
-        def cycleFree(c):
-            if c in v: return False
-            if adj[c] == [] : return True
+        v = set()
 
-            v.add(c)
-            for pre in adj[c]:
-                if not cycleFree(pre): return False
+        def dfs(i):
+            
+            if i in v: return False
+            if adj[i] == []: return True
+            v.add(i)
 
-            v.remove(c)
-            adj[c] = []
+            for j in adj[i]:
+                if not dfs(j): return False
+            
+            v.remove(i)
+            adj[i] = []
             return True
-        
+
         for c in range(numCourses):
-            if not cycleFree(c): return False
+            if not dfs(c): return False
+        
         return True
