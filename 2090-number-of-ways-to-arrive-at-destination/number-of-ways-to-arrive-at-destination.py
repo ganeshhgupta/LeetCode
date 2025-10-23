@@ -1,35 +1,39 @@
-from collections import defaultdict
-from heapq import heappop, heappush
-from typing import List
-
 class Solution:
     def countPaths(self, n: int, roads: List[List[int]]) -> int:
+        
+        # djikstra 
+
         adj = defaultdict(list)
         for u, v, w in roads:
-            adj[u].append((v, w))
-            adj[v].append((u, w))
+            adj[u].append((w, v))
+            adj[v].append((w, u))
 
         MOD = 10 ** 9 + 7
 
-        mh = [(0, 0)]
+        mh = [(0,0)]
         min_cost = [float('inf')] * n
-        min_cost[0] = 0
         path_count = [0] * n
         path_count[0] = 1
 
         while mh:
             cost, node = heappop(mh)
 
-            if cost > min_cost[node]:
-                continue
-
-            for nei, w in adj[node]: 
-                if cost + w < min_cost[nei]:
-                    min_cost[nei] = cost + w
+            for nei_cost, nei in adj[node]:
+                
+                if cost + nei_cost < min_cost[nei]:
+                    min_cost[nei] = cost + nei_cost
                     path_count[nei] = path_count[node]
                     heappush(mh, (min_cost[nei], nei))
 
-                elif cost + w == min_cost[nei]:
-                    path_count[nei] = (path_count[nei] + path_count[node]) % MOD
+                elif cost + nei_cost == min_cost[nei]:
+                    path_count[nei] = ( path_count[nei] + path_count[node] ) % MOD
 
         return path_count[n-1]
+
+
+
+
+
+
+
+
