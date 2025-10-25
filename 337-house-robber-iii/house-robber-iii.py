@@ -7,15 +7,23 @@
 class Solution:
     def rob(self, root: Optional[TreeNode]) -> int:
         
-        # O(n), O(1)
-        def dfs(n):
-            if not n: return (0, 0)
-
-            l_rob, l_not = dfs(n.left)
-            r_rob, r_not = dfs(n.right)
-            rob = l_not + n.val + r_not
-            not_rob = max(l_not, l_rob) + max(r_not, r_rob)
-
-            return rob, not_rob
+        # O(n), O(h)
         
-        return max( dfs(root) )
+        def dfs(node):
+            if not node:
+                return ((0, 0))
+
+            left = dfs(node.left)
+            right = dfs(node.right)
+
+            rob = node.val + left[1] + right[1] #
+            skip = max(left) + max(right)
+
+            return (rob, skip) # (max val if we rob this node, if we skip this node)
+                               # rob -> max val from children
+                               # skip -> max val from grandkids + curr node
+        
+        return max(dfs(root))
+        
+
+
