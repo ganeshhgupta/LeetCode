@@ -1,19 +1,25 @@
-from typing import List
-
 class Solution:
     def setZeroes(self, matrix: List[List[int]]) -> None:
 
-        rows, cols = len(matrix), len(matrix[0])
-        rz, cz = set(), set()
-
-        for r in range(rows):
-            for c in range(cols):
-                if matrix[r][c] == 0:
-                    rz.add(r)
-                    cz.add(c)
-        for r in rz:
-            for c in range(cols):
-                matrix[r][c] = 0
-        for r in range(rows):
-            for c in cz:
-                matrix[r][c] = 0
+        m, n = len(matrix), len(matrix[0])
+        firstRowZero = any(matrix[0][j] == 0 for j in range(n))
+        firstColZero = any(matrix[i][0] == 0 for i in range(m))
+        
+        for i in range(1, m):
+            for j in range(1, n):
+                if matrix[i][j] == 0:
+                    matrix[i][0] = 0
+                    matrix[0][j] = 0
+        
+        for i in range(1, m):
+            for j in range(1, n):
+                if matrix[i][0] == 0 or matrix[0][j] == 0:
+                    matrix[i][j] = 0
+        
+        if firstRowZero:
+            for j in range(n):
+                matrix[0][j] = 0
+        
+        if firstColZero:
+            for i in range(m):
+                matrix[i][0] = 0
