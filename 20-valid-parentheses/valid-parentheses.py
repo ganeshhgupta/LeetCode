@@ -1,16 +1,13 @@
 class Solution:
     def isValid(self, s: str) -> bool:
         
+        par = { ')':'(' , '}':'{', ']':'['}
         st = []
-        map = {')':'(' , '}':'{' , ']':'['}
 
         for i in s:
-            if i in map:
-                if st and st[-1] == map[i]:
-                    st.pop()
-                else:
-                    return False
+            if i in par and st and st[-1] == par[i]:
+                st.pop()
             else:
                 st.append(i)
         
-        return True if not st else False
+        return len(st) == 0
