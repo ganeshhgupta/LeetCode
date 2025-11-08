@@ -1,7 +1,6 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
         
-        # O(n * n!), O(n * n!) including output, else O(n)
         n = len(nums)
         res = []
 
@@ -16,6 +15,8 @@ class Solution:
                 li.insert(j, nums[i])
                 dfs(i + 1, li)
                 li.pop(j)
+            
+            return
         
         dfs(0, [])
         return res
