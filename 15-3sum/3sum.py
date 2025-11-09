@@ -1,36 +1,35 @@
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
+        
         nums.sort()
-        target = 0
         res = []
-        n = len(nums)
+        for i in range(len(nums) - 2):
+            
+            if i > 0 and nums[i] == nums[i - 1]: # skip i dups
+                continue
 
-        def twosumtwo(i, j, target):
-            pairs = []
-            left, right = i, j
-            while left < right:
-                curr = nums[left] + nums[right]
-                if curr > target:
-                    right -= 1
-                elif curr < target:
-                    left += 1
+            j = i + 1
+            k = len(nums) - 1
+
+            while j < k:
+
+                cur = nums[i] + nums[j] + nums[k]
+
+                if cur == 0:
+                    res.append([nums[i], nums[j], nums[k]])
+                
+                    # Skip duplicates for j and k
+                    while j < k and nums[j] == nums[j + 1]:
+                        j += 1
+                    while j < k and nums[k] == nums[k - 1]:
+                        k -= 1
+                    
+                    j += 1
+                    k -= 1
+
+                elif cur > 0:
+                    k -= 1
                 else:
-                    pairs.append([nums[left], nums[right]])
-                    #skip duplicates for i and j
-                    while left < right and nums[left] == nums[left + 1]:
-                        left += 1
-                    while left < right and nums[right] == nums[right - 1]:
-                        right -= 1
-                    left += 1
-                    right -= 1
-            return pairs
-
-        for k in range(n - 2):
-            if k > 0 and nums[k] == nums[k - 1]:
-                continue  # skip duplicates for k
-
-            two_sum_pairs = twosumtwo(k + 1, n - 1, target - nums[k])
-            for pair in two_sum_pairs:
-                res.append([nums[k]] + pair)
-
+                    j += 1
+        
         return res
