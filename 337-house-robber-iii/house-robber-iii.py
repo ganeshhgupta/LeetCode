@@ -6,24 +6,19 @@
 #         self.right = right
 class Solution:
     def rob(self, root: Optional[TreeNode]) -> int:
-        
-        # O(n), O(h)
-        
-        def dfs(node):
-            if not node:
-                return ((0, 0))
 
-            left = dfs(node.left)
-            right = dfs(node.right)
+        def dfs(n):
+            if not n:
+                return (0, 0)
+        
+            left = dfs(n.left)
+            right = dfs(n.right)
 
-            rob = node.val + left[1] + right[1] #
+            rob = n.val + left[1] + right[1]
             skip = max(left) + max(right)
 
-            return (rob, skip) # (max val if we rob this node, if we skip this node)
-                               # rob -> max val from children
-                               # skip -> max val from grandkids + curr node
+            return (rob, skip)
         
         return max(dfs(root))
+
         
-
-
