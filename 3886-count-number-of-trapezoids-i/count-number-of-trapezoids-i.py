@@ -1,15 +1,27 @@
 class Solution:
     def countTrapezoids(self, points: List[List[int]]) -> int:
+
         MOD = 10 ** 9 + 7
-        res = total = 0
+        total_lines = 0
+        res = 0
 
-        y_levels = defaultdict(int)
+         # dict with (y coord : no. of points on that line)
 
-        for y, y in points:
-            y_levels[y] += 1
+        y_coords = defaultdict(int)
 
-        for y, count in y_levels.items():
-            lines = count * (count - 1) // 2
-            res = (res + total * lines) % MOD
-            total = (total + lines) % MOD
+        for x, y in points:
+            y_coords[y] += 1
+        
+
+        for y, point in y_coords.items():
+
+            # can form nC2 lines from n points :
+            curr_lines = point * (point - 1) // 2
+
+            # just multiply no. of lines in current y-coord with all the other existing lines
+            res = (res + total_lines * curr_lines) % MOD
+
+            # and simple keep doing curr * total for all possible combinations
+            total_lines = (total_lines + curr_lines) % MOD
+        
         return res
