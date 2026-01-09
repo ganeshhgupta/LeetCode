@@ -1,0 +1,27 @@
+class Solution:
+    def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
+        
+        # O(v+E), cycle detection
+        # youtube.com/watch?v=wciKkM3g3wQ
+        
+        n = len(graph)
+        safe = {}
+
+        def dfs(i):
+            if i in safe:
+                return safe[i]
+            
+            safe[i] = False
+            for nei in graph[i]:
+                if not dfs(nei):
+                    return False
+            
+            safe[i] = True
+            return safe[i]
+        
+        res = []
+        for i in range(n):
+            if dfs(i):
+                res.append(i)
+        
+        return res
