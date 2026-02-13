@@ -1,0 +1,17 @@
+class Solution:
+    def removeOuterParentheses(self, s: str) -> str:
+        
+        res = []
+        depth = 0
+
+        for c in s:
+            if c == '(':
+                if depth > 0:      # skip outermost '('
+                    res.append(c)
+                depth += 1
+            else:  # c == ')'
+                depth -= 1
+                if depth > 0:      # skip outermost ')'
+                    res.append(c)
+
+        return ''.join(res)
