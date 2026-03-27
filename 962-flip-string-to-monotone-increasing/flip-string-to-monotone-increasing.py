@@ -4,19 +4,18 @@ class Solution:
         # O(n), O(n)
         n = len(s)
         
-        # Count 1s from the left (ones that need to become 0s)
+        # no. of ones to the left of i and no. of zeroes to the right of i
         ones_left = 0
-        # Count 0s from the right (zeros that need to become 1s)
         zeros_right = s.count('0')
-        
-        min_flips = zeros_right  # Case: entire string becomes all 1s
-        
+
+        res = zeros_right # and not min(zero_right, n - zero_right) cause that's redudant, the loop will check that anyway
+
         for i in range(n):
             if s[i] == '0':
-                zeros_right -= 1  # This 0 is now on the left, no longer needs flipping
+                zeros_right -= 1
             else:
-                ones_left += 1    # This 1 is on the left, needs to be flipped to 0
+                ones_left += 1
             
-            min_flips = min(min_flips, ones_left + zeros_right)
+            res =  min(res, ones_left + zeros_right)
         
-        return min_flips
+        return res
