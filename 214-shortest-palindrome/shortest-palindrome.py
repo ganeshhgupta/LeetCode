@@ -1,11 +1,10 @@
 class Solution:
     def shortestPalindrome(self, s: str) -> str:
 
-        # O(n), O(n)
+        # O(n), O(n) KMP array of s + '#' + rev(s)
         if not s:
             return s
 
-        # build combined string
         combined = s + '#' + s[::-1]
 
         # build KMP failure function
@@ -18,11 +17,6 @@ class Solution:
                 j += 1
             fail[i] = j
 
-        # fail[-1] = length of longest palindromic prefix
         l = fail[-1]
-
-        # suffix that is not part of the palindromic prefix
         suffix = s[l:]
-
-        # prepend the reverse of that suffix
         return suffix[::-1] + s
