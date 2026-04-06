@@ -1,6 +1,7 @@
 class Solution:
     def robotSim(self, commands: List[int], obstacles: List[List[int]]) -> int:
         
+        # O(N + K), O(obs)
         curr_x, curr_y = 0, 0
         dir = 0  # 0: up, 1: right, 2: down, 3: left
         obs = set(map(tuple, obstacles))
