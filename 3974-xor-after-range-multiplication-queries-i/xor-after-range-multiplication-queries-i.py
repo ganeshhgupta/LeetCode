@@ -3,16 +3,13 @@ class Solution:
         
         # O(q * n), O(1)
         
+        res = 0
         MOD = 10**9 + 7
-        
-        def sim(l, r, k, v):
+
+        for l, r, k, v in queries:
             for i in range(l, r + 1, k):
                 nums[i] = (nums[i] * v) % MOD
-        
-        for l, r, k, v in queries:
-            sim(l, r, k, v)
 
-        res = 0
         for x in nums:
             res ^= x
         
