@@ -1,37 +1,35 @@
 class Solution:
     def calculate(self, s: str) -> int:
-        curr = prev = res = 0 
-        op = '+'
-        s += '+'  #add an operator '+' to ensure the last number is processed
+
+        curr = prev = res = 0 # prev holds sec last seen no. ; curr holds last seen no.
+        op = '+' # holds last seen operator
+        s += '+'
 
         for ch in s:
 
-            if ch.isdigit():
+            if ch in '1234567890':
                 curr = curr * 10 + int(ch)
-
-            elif ch in "+-*/":
+            
+            elif ch in '+-*/': 
                 
                 if op == '+':
                     res += prev
-                    prev = curr # prev stores the previous curr for one iteration
-                                # just to mmake sure, if next op is '*' or '/' it'll immediately perform it
-                                # if op is '+'/'-' it'll add/subtract the previous curr to res
-
-                elif op == '-':
+                    prev = curr
+                
+                if op == '-':
                     res += prev
                     prev = -curr
-
-                elif op == '*':
+                
+                if op == '*':
                     prev *= curr
-
-                elif op == '/':
-                    prev = int(prev / curr)  # Truncate toward zero
-
-                op = ch
-                curr = 0
-
-            elif ch == ' ':
-                continue
-
+                
+                if op == '/':
+                    prev = int(prev/curr) #truncate to int
+            
+                op = ch # load next operator
+                curr = 0 # empty curr
+            
         res += prev
         return res
+        
+
