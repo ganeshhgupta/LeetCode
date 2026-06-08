@@ -1,6 +1,8 @@
 class Solution:
     def pivotArray(self, nums: List[int], pivot: int) -> List[int]:
         
+        # O(n), O(n)
+        
         mid = 0
         left = []
         right = []
