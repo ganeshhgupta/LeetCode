@@ -7,16 +7,16 @@
 class Solution:
     def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         
-        res = []
+        self.res = []
 
-        def dfs(node):
+        def dfs(n):
 
-            if not node:
-                return 
-
-            dfs(node.left)
-            res.append(node.val)
-            dfs(node.right)
+            if not n: 
+                return
+            
+            dfs(n.left)
+            self.res.append(n.val)
+            dfs(n.right)
 
         dfs(root)
-        return res
+        return self.res
