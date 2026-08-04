@@ -7,20 +7,22 @@
 class Solution:
     def isBalanced(self, root: Optional[TreeNode]) -> bool:
         
-        def dfs(n):
+        # O(n), O(h)
+        
+        self.res = True
+
+        def dfs(n, curr):
+
             if not n:
                 return 0
             
-            left_depth = dfs(n.left)
-            right_depth = dfs(n.right)
+            left = 1 + dfs(n.left, curr)
+            right = 1 + dfs(n.right, curr)
 
-            if abs( left_depth - right_depth ) > 1:
-                return -1
-            
-            if left_depth == -1 or right_depth == -1:
-                return -1
-            
-            return 1 + max(left_depth, right_depth)
+            if abs(left - right) > 1:
+                self.res = False
+
+            return max(left, right)
         
-        return dfs(root) != -1
-        
+        dfs(root, 0)
+        return self.res
