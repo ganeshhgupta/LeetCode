@@ -1,5 +1,8 @@
 class Solution:
     def firstMissingPositive(self, nums: List[int]) -> int:
+        
+        # O(nlogn), O(n)
+        
         # Keep only positive numbers
         res = [n for n in nums if n > 0]
         if not res:
