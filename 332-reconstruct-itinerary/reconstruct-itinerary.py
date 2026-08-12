@@ -1,23 +1,31 @@
 class Solution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
 
-        # O(N log N), O(N)
-        
-        adj = defaultdict(list)
+        # O(E log E), O(E)
+        # Hierholzer's algorithm, not ordinary DFS
 
-        for dep, arr in sorted(tickets, reverse=True):
-            adj[dep].append(arr) # reverse sorted to use pop efficiently
+        # Always take the smallest available destination first.
+        # If we get stuck before using all tickets, backtrack and place that airport later.
+        # An airport is added to the answer only when it has no unused outgoing ticket.
+        # Reverse the result because airports are added in postorder.
 
-        st = ["JFK"]
+        graph = defaultdict(list)
+
+        for a, b in tickets:
+            graph[a].append(b)
+
+        for src in graph:
+            graph[src].sort(reverse=True)
+
         res = []
 
-        while st:
-            # If the current airport (top of stack) has remaining destinations, add the next one to the stack
-            if adj[st[-1]]:
-                st.append(adj[st[-1]].pop())
-            else:
-                # If there are no more destinations, add the current airport to the new itinerary
-                res.append(st.pop())
+        def dfs(src):
+            while graph[src]:
+                dst = graph[src].pop()
+                dfs(dst)
 
-        # Reverse the result
+            res.append(src)
+
+        dfs("JFK")
+
         return res[::-1]
