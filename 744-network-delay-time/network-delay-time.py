@@ -13,24 +13,21 @@ class Solution:
         for u, v, w in times:
             adj[u].append((v, w))
 
-        def bfs(src):
+        q = [(0, k)]
+        v = set()
+        dist = 0
 
-            q = [(0, src)]
-            v = set()
-            dist = 0
+        while q:
+            time, node = heapq.heappop(q)
 
-            while q:
-                time, node = heapq.heappop(q)
+            if node in v:
+                continue
 
-                if node in v:
-                    continue
+            v.add(node)
+            dist = max(dist, time)
 
-                v.add(node)
-                dist = max(dist, time)
+            for nei, nei_time in adj[node]:
+                heapq.heappush(q, (time + nei_time, nei))
 
-                for nei, nei_time in adj[node]:
-                    heapq.heappush(q, (time + nei_time, nei))
+        return dist if len(v) == n else -1
 
-            return dist if len(v) == n else -1
-
-        return bfs(k)
