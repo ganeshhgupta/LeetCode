@@ -1,18 +1,25 @@
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
 
-        if not matrix or not matrix[0]:
-            return False
+        # TC: O(N + M), SC: O(1)
 
-        m, n = len(matrix), len(matrix[0])
-        r, c = 0, n - 1
+        # Staircase from top-right: that cell is max of its row, min of its column.
+        # So cur > target kills column j (all below are bigger); cur < target kills row i.
+        # Each step drops a full row or column => O(N + M) time, O(1) space.
 
-        while r < m and c >= 0:
-            if matrix[r][c] == target:
+        N, M = len(matrix), len(matrix[0])
+        i, j = 0, M - 1
+
+        while i < N and j >= 0:
+
+            cur = matrix[i][j]
+
+            if cur == target:
                 return True
-            elif matrix[r][c] > target:
-                c -= 1
+                
+            elif cur > target:
+                j -= 1   # whole column j below is >= cur > target
             else:
-                r += 1
+                i += 1   # whole row i left of j is <= cur < target
 
         return False
