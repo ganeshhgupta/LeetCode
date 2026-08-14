@@ -2,7 +2,12 @@ class Solution:
     def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
 
         # O(N + E log E) n - acc, E - emails
-        
+
+        # 1. Map each email to the account where it first appears.
+        # 2. If an email appears again, union the two account indices.
+        # 3. Group all emails by their Union-Find root.
+        # 4. Sort each group and prepend the account name.
+
         n = len(accounts)
         uf = UF(n)
         email_to_id = {} # {email : index of that entry} 
