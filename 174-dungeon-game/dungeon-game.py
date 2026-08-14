@@ -2,6 +2,9 @@ class Solution:
     def calculateMinimumHP(self, dungeon: List[List[int]]) -> int:
 
         # O(m.n), O(m.n)
+        # start from bottom right with score '1' (min you need to have when you reach there)
+        # start 
+        
         m, n = len(dungeon), len(dungeon[0])
         dp = [[0] * n for _ in range(m)]
         dp[m-1][n-1] = max(1 - dungeon[m-1][n-1], 1)
