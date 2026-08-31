@@ -1,33 +1,30 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
 
-        # KAHN's O(V + E), O(V + E)
-        # create graph, courses with no prereq are indegree = 1
-        # start bfs with all indegree == 1 nodes, then do indegree -=1 for neis
-        
         adj = defaultdict(list)
-        indegree = [0] * numCourses
+        courses = [0] * numCourses
 
-        for c, prereq in prerequisites:
-            adj[prereq].append(c)
-            indegree[c] += 1
+        for pre, course in prerequisites:
+            adj[pre].append(course)
+            courses[course] += 1
 
         q = deque()
 
-        for i in range(numCourses):
-            if indegree[i] == 0:
-                q.append(i)
+        for c in range(numCourses):
+            if courses[c] == 0:
+                q.append(c)
 
         count = 0
 
         while q:
+
             course = q.popleft()
             count += 1
 
             for nei in adj[course]:
-                indegree[nei] -= 1
+                courses[nei] -= 1
 
-                if indegree[nei] == 0:
+                if courses[nei] == 0:
                     q.append(nei)
 
         return count == numCourses
