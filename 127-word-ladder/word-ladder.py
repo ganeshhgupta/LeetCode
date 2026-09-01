@@ -1,24 +1,31 @@
 class Solution:
-    def ladderLength(self, beginWord: str, endWord: str, wordList: list) -> int:
-        wordSet = set(wordList)  # Convert list to set for fast lookup
-        if endWord not in wordSet:
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        
+        # ≈ O(N × L²), O(N)
+        
+        words = set(wordList)
+
+        if endWord not in words:
             return 0
+        
+        q = deque([(beginWord, 1)])
 
-        queue = deque([(beginWord, 1)])  # BFS queue storing (word, steps)
+        words.discard(beginWord)
 
-        while queue:
-            word, steps = queue.popleft()
+        while q:
+            word, steps = q.popleft()
 
             if word == endWord:
                 return steps
-
+            
             for i in range(len(word)):
-                original = word[i]
-                print(original)
-                for ch in range(26):  # Check all possible single character changes
-                    transformed = word[:i] + chr(ord('a') + ch) + word[i + 1:]
-                    if transformed in wordSet:
-                        wordSet.remove(transformed)  # Avoid revisiting
-                        queue.append((transformed, steps + 1))
-        
-        return 0  # If no valid transformation is found
+                for c in "abcdefghijklmnopqrstuvwxyz":
+
+                    new_word = word[:i] + c + word[i+1:]
+                    
+                    if new_word in words:
+                        words.discard(new_word)
+                        q.append((new_word, steps + 1))
+
+        return 0
+
