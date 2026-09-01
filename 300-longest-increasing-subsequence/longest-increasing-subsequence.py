@@ -10,20 +10,12 @@ class Solution:
         LIS = [nums[0]]
 
         for n in nums:
-
-            left, right = 0, len(LIS)
             
-            while left < right:
-                mid = left + (right - left) // 2
-                
-                if LIS[mid] < n:
-                    left = mid + 1
-                else:
-                    right = mid
-        
-            if left == len(LIS):
+            i = bisect_left(LIS, n)
+
+            if i == len(LIS):
                 LIS.append(n)
             else:
-                LIS[left] = n
-        
+                LIS[i] = n
+
         return len(LIS)
