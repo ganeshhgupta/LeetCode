@@ -1,0 +1,4 @@
+class Solution:
+    def reverseDegree(self, s: str) -> int:
+        # hehe
+        return sum((i + 1) * (ord('z') - ord(c) + 1) for i, c in enumerate(s))
