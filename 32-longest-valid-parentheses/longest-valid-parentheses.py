@@ -1,6 +1,8 @@
 class Solution:
     def longestValidParentheses(self, s: str) -> int:
 
+        # O(n), O(n)
+        # st = indices of unmatched '(' + the index before the current valid substring
         st = [-1]
         res = 0
 
