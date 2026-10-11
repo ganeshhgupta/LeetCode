@@ -1,8 +1,8 @@
 class Solution:
     def minInsertions(self, s: str) -> int:
 
-        # O(n), O(n)
-        
+        # O(n), O(1)
+
         l, r = 0, len(s) - 1
         res = 0
         need = 0
