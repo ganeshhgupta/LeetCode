@@ -1,32 +1,33 @@
 class Solution:
     def closedIsland(self, grid: List[List[int]]) -> int:
-        
-        rows, cols = len(grid), len(grid[0])
-        dirs = [[0,1], [1,0], [-1,0], [0,-1]]
-        count = 0
+
+        N, M = len(grid), len(grid[0])
+        dirs = [[0,1], [1,0], [0,-1], [-1,0]]
+        v = set()
 
         def dfs(r, c):
+            if 0 <= r < N and 0 <= c < M and (r, c) not in v and grid[r][c] == 0:
+                v.add((r, c))
 
-            if not (0 <= r < rows) or not (0 <= c < cols):
-                return False # not closed
-            if grid[r][c] == 1: # closed
-                return True
+                for dr, dc in dirs:
+                    dfs(r + dr, c + dc)
 
-            grid[r][c] = 1
-            isClosed = True
+        # Remove islands touching the border
+        for i in range(N):
+            dfs(i, 0)
+            dfs(i, M - 1)
 
-            for dr, dc in dirs:
-                if not dfs(r + dr, c + dc):
-                    isClosed = False
+        for j in range(M):
+            dfs(0, j)
+            dfs(N - 1, j)
 
-            return isClosed
+        res = 0
 
-        for r in range(rows):
-            for c in range(cols):
-                if grid[r][c] == 0:
-                    if dfs(r, c):
-                        count += 1
-        return count
+        # Count remaining islands
+        for i in range(N):
+            for j in range(M):
+                if grid[i][j] == 0 and (i, j) not in v:
+                    res += 1
+                    dfs(i, j)
 
-
-
+        return res
