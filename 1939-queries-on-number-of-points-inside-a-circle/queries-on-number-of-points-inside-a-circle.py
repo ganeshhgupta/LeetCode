@@ -1,6 +1,8 @@
 class Solution:
     def countPoints(self, points: List[List[int]], queries: List[List[int]]) -> List[int]:
 
+        # O(nlogn+qn), O(n+q)
+ 
         # Sort points by X coordinate
         sorted_x = sorted(points, key=lambda p: p[0])
 
