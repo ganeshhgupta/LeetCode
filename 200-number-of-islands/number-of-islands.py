@@ -1,21 +1,27 @@
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         
-        rows, cols = len(grid), len(grid[0])
+        N, M = len(grid), len(grid[0])
         dirs = [[0,1], [1,0], [-1,0], [0,-1]]
-        count = 0
+        res = 0
 
         def dfs(r, c):
 
-            if not (0 <= r < rows) or not (0 <= c < cols) or grid[r][c] == '0':
+            if not (0 <= r < N and 0 <= c < M) or grid[r][c] == '0':
                 return
+            
             grid[r][c] = '0'
-            for dr, dc in dirs:
-                dfs(r +dr , c + dc)
 
-        for r in range(rows):
-            for c in range(cols):
+            for dr, dc in dirs:
+                nr, nc = r + dr, c + dc
+                dfs(nr, nc)
+            
+            return
+        
+        for r in range(N):
+            for c in range(M):
                 if grid[r][c] == '1':
                     dfs(r, c)
-                    count += 1
-        return count 
+                    res += 1
+        
+        return res
